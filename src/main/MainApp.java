@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
+import javax.swing.SwingUtilities;
+import javax.swing.JOptionPane;
 
 public class MainApp {
     private List<Solicitud> solicitudes;

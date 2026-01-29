@@ -3,10 +3,11 @@ package model;
 import weka.core.Attribute;
 import weka.core.DenseInstance;
 import weka.core.Instances;
-import weka.classifiers.trees.randomForest;
+import weka.classifiers.trees.RandomForest;
 import weka.classifiers.Evaluation;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.List;
 
 public class PredictionModel {
     private RandomForest randomForest;
@@ -14,22 +15,17 @@ public class PredictionModel {
     private ArrayList<Attribute> attributes;
 
     public PredictionModel() {
-        private RandomForest randomForest;
-        private Instances dataset;
-        private ArrayList<Attribute> attributes;
+        this.randomForest = new RandomForest();
+        this.randomForest.setNumIterations(100);
+    }
 
-        public PredictionModel() {
-            this.randomForest = new RandomForest();
-            this.randomForest.setNumIteration(100);
-        }
-
-        public void trainModel(List<Solicitud> solicitudes) throws Exception {
+    public void trainModel(List<Solicitud> solicitudes) throws Exception {
         // Definir atributos
         attributes = new ArrayList<>();
         
         // Atributos categóricos
-        ArrayList <String> sectores = new ArrayList<>();
-        sectores.add("Industial");
+        ArrayList<String> sectores = new ArrayList<>();
+        sectores.add("Industrial");
         sectores.add("Terciario");
         sectores.add("Residencial");
         sectores.add("Agropecuario");

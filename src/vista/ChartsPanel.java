@@ -8,6 +8,7 @@ import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import java.awt.*;
+import java.util.Map;
 import model.AnalisisResultado;
 
 public class ChartsPanel extends JPanel {

@@ -3,6 +3,7 @@ package vista;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.Map;
 import model.Solicitud;
 import model.AnalisisResultado;
 
