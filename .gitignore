@@ -1,0 +1,149 @@
+# ============================
+# ARCHIVOS DE SISTEMA OPERATIVO
+# ============================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ============================
+# ARCHIVOS DE ENTORNOS DE DESARROLLO
+# ============================
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+.metadata/
+
+# NetBeans
+nbproject/
+nb-configuration.xml
+build/
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# ============================
+# ARCHIVOS COMPILADOS
+# ============================
+
+# Archivos Java compilados
+*.class
+*.jar
+*.war
+*.ear
+
+# Directorios de compilación
+target/
+build/
+dist/
+out/
+bin/
+
+# Paquetes
+*.zip
+*.tar.gz
+*.rar
+
+# ============================
+# ARCHIVOS DE LOGS Y DATOS TEMPORALES
+# ============================
+*.log
+logs/
+temp/
+tmp/
+
+# ============================
+# ARCHIVOS DE CONFIGURACIÓN ESPECÍFICOS
+# ============================
+
+# Archivos de propiedades locales (no compartir)
+*.properties.local
+config.properties
+
+# Claves y credenciales
+*.key
+*.p12
+*.keystore
+*.jks
+*.crt
+*.pem
+
+# ============================
+# ARCHIVOS GENERADOS POR EL PROYECTO
+# ============================
+
+# Base de datos local
+*.db
+*.sqlite
+*.h2.db
+
+# Reportes
+reportes/
+coverage/
+
+# Documentación generada
+docs/api/
+docs/javadoc/
+
+# ============================
+# ARCHIVOS DE SISTEMAS DE CONSTRUCCIÓN
+# ============================
+
+# Maven
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Ant
+*.classpath
+*.project
+
+# ============================
+# ARCHIVOS ESPECÍFICOS DEL PROYECTO CAE
+# ============================
+
+# Excluir archivos de datos de entrada/output (excepto el ejemplo)
+data/input/*
+!data/input/ejemplo.csv
+data/output/
+
+# Excluir configuraciones locales
+src/main/resources/config/config_local.properties
+
+# ============================
+# ARCHIVOS DE PRUEBAS
+# ============================
+test-results/
+test-reports/
+
+# ============================
+# OTROS
+# ============================
+*.swp
+*.swo
+*~
