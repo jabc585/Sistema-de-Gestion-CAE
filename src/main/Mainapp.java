@@ -23,7 +23,7 @@ public class Solicitud {
         this.idSolicitud = idSolicitud;
         this.tipoSolicitante = tipoSolicitante;
         this.tipoActuacion = tipoActuacion;
-        this.anoFinActuacion = anoFinActuacion;
+        this.añoFinEjecucion = añoFinEjecucion;
         this.totalAhorroSolicitado = totalAhorroSolicitado;
         this.comunidadAutonoma = comunidadAutonoma;
         this.numeroActuacion = numeroActuacion;
@@ -55,11 +55,11 @@ public class Solicitud {
     public void setTipoActuacion(String tipoActuacion) {
         this.tipoActuacion = tipoActuacion;
     }
-    public int getAnoFinActuacion() {
-        return anoFinActuacion;
+    public int getAñoFinActuacion() {
+        return añoFinActuacion;
     }
-    public void setAnoFinActuacion(int anoFinActuacion) {
-        this.anoFinActuacion = anoFinActuacion;
+    public void setAñoFinActuacion(int añoFinActuacion) {
+        this.añoFinActuacion = añoFinActuacion;
     }
     public double getTotalAhorroSolicitado() {
         return totalAhorroSolicitado;
