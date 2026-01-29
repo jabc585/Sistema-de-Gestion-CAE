@@ -1,130 +1,129 @@
-package model;
+package main;
 
+import vista.DashboardFrame;
+import model.Solicitud;
+import model.AnalisisResultado;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.stream.Collectors;
 
-public class Solicitud {
-    private String idSolicitud;
-    private String tipoSolicitante;
-    private String tipoActuacion;
-    private int anoFinActuacion; 
-    private double totalAhorroSolicitado;
-    private String comunidadAutonoma;
-    private int numeroActuacion; 
-    private double ahorroActuacion;
-    private String idActuacion;
-    private String codigoTitulo;
-    private String descripcion; 
-    private LocalDate fecha;
-    private String estado;
-    private String sector;
+public class MainApp {
+    private List<Solicitud> solicitudes;
+    private AnalisisResultado analisis;
     
-    //constructor     
-    public Solicitud(String idSolicitud, String tipoSolicitante, String tipoActuacion, int anoFinActuacion, double totalAhorroSolicitado, String comunidadAutonoma, int numeroActuacion, double ahorroActuacion, String idActuacion, String codigoTitulo, String descripcion, LocalDate fecha, String estado, String sector) {
-        this.idSolicitud = idSolicitud;
-        this.tipoSolicitante = tipoSolicitante;
-        this.tipoActuacion = tipoActuacion;
-        this.añoFinEjecucion = añoFinEjecucion;
-        this.totalAhorroSolicitado = totalAhorroSolicitado;
-        this.comunidadAutonoma = comunidadAutonoma;
-        this.numeroActuacion = numeroActuacion;
-        this.ahorroActuacion = ahorroActuacion;
-        this.idActuacion = idActuacion;
-        this.codigoTitulo = codigoTitulo;
-        this.descripcion = descripcion;
-        this.fecha = fecha;
-        this.estado = estado;
-        this.sector = sector;
-    }   
-
-    //getters y setters
-    public String getIdSolicitud() {
-        return idSolicitud;
-    }
-    public void setIdSolicitud(String idSolicitud) {
-        this.idSolicitud = idSolicitud;
-    }
-    public String getTipoSolicitante() {
-        return tipoSolicitante;
-    }
-    public void setTipoSolicitante(String tipoSolicitante) {
-        this.tipoSolicitante = tipoSolicitante;
-    }
-    public String getTipoActuacion() {
-        return tipoActuacion;
-    }
-    public void setTipoActuacion(String tipoActuacion) {
-        this.tipoActuacion = tipoActuacion;
-    }
-    public int getAñoFinActuacion() {
-        return añoFinActuacion;
-    }
-    public void setAñoFinActuacion(int añoFinActuacion) {
-        this.añoFinActuacion = añoFinActuacion;
-    }
-    public double getTotalAhorroSolicitado() {
-        return totalAhorroSolicitado;
-    }
-    public void setTotalAhorroSolicitado(double totalAhorroSolicitado) {
-        this.totalAhorroSolicitado = totalAhorroSolicitado;
-    }
-    public String getComunidadAutonoma() {
-        return comunidadAutonoma;
-    }
-    public void setComunidadAutonoma(String comunidadAutonoma) {
-        this.comunidadAutonoma = comunidadAutonoma;
-    }
-    public int getNumeroActuacion() {
-        return numeroActuacion;
-    }
-    public void setNumeroActuacion(int numeroActuacion) {
-        this.numeroActuacion = numeroActuacion;
-    }
-    public double getAhorroActuacion() {
-        return ahorroActuacion;
-    }
-    public void setAhorroActuacion(double ahorroActuacion) {
-        this.ahorroActuacion = ahorroActuacion;
-    }
-    public String getIdActuacion() {
-        return idActuacion;
-    }
-    public void setIdActuacion(String idActuacion) {
-        this.idActuacion = idActuacion;
-    }
-    public String getCodigoTitulo() {
-        return codigoTitulo;
-    }
-    public void setCodigoTitulo(String codigoTitulo) {
-        this.codigoTitulo = codigoTitulo;
-    }
-    public String getDescripcion() {
-        return descripcion;
-    }
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-    public LocalDate getFecha() {
-        return fecha;
-    }
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-    public String getEstado() {
-        return estado;
-    }
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-    public String getSector() {
-        return sector;
-    }
-    public void setSector(String sector) {
-        this.sector = sector;
-    }
-
-    @Override
-    public String toString() {
-        return "Solicitud [idSolicitud=" + idSolicitud + ", tipoSolicitante=" + tipoSolicitante + ", tipoActuacion=" + tipoActuacion + ", anoFinActuacion=" + anoFinActuacion + ", totalAhorroSolicitado=" + totalAhorroSolicitado + ", comunidadAutonoma=" + comunidadAutonoma + ", numeroActuacion=" + numeroActuacion + ", ahorroActuacion=" + ahorroActuacion + ", idActuacion=" + idActuacion + ", codigoTitulo=" + codigoTitulo + ", descripcion=" + descripcion + ", fecha=" + fecha + ", estado=" + estado + ", sector=" + sector + "]";
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            MainApp app = new MainApp();
+            app.loadData();
+            app.analyzeData();
+            app.showDashboard();
+        });
     }
     
-}   
+    private void loadData() {
+        solicitudes = new ArrayList<>();
+        String csvFile = Paths.get("data", "SGC.csv").toString();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            String line;
+            boolean firstLine = true;
+            
+            while ((line = br.readLine()) != null) {
+                if (firstLine) {
+                    firstLine = false;
+                    continue;
+                }
+                
+                String[] values = line.split(";");
+                if (values.length >= 15) {
+                    try {
+                        Solicitud solicitud = new Solicitud(
+                            values[0].trim(),
+                            values[1].trim(),
+                            values[2].trim(),
+                            Integer.parseInt(values[3].trim()),
+                            Double.parseDouble(values[4].trim().replace(".", "").replace(",", ".")),
+                            values[5].trim(),
+                            Integer.parseInt(values[6].trim()),
+                            Double.parseDouble(values[7].trim().replace(".", "").replace(",", ".")),
+                            values[8].trim(),
+                            values[9].trim(),
+                            values[10].trim(),
+                            LocalDate.parse(values[11].trim(), dateFormatter),
+                            values[13].trim(),
+                            values[14].trim()
+                        );
+                        solicitudes.add(solicitud);
+                    } catch (Exception e) {
+                        System.err.println("Error parsing line: " + line);
+                        e.printStackTrace();
+                    }
+                }
+            }
+            
+            System.out.println("Datos cargados: " + solicitudes.size() + " registros");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, 
+                "Error cargando datos: " + e.getMessage(), 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void analyzeData() {
+        // Ahorro por sector
+        Map<String, Double> ahorroPorSector = solicitudes.stream()
+            .collect(Collectors.groupingBy(
+                Solicitud::getSector,
+                Collectors.summingDouble(Solicitud::getTotalAhorroSolicitado)
+            ));
+        
+        // Ahorro por comunidad
+        Map<String, Double> ahorroPorComunidad = solicitudes.stream()
+            .collect(Collectors.groupingBy(
+                Solicitud::getComunidadAutonoma,
+                Collectors.summingDouble(Solicitud::getTotalAhorroSolicitado)
+            ));
+        
+        // Conteo por estado
+        Map<String, Long> conteoPorEstado = solicitudes.stream()
+            .collect(Collectors.groupingBy(
+                Solicitud::getEstado,
+                Collectors.counting()
+            ));
+        
+        // Cálculos totales
+        double ahorroTotal = solicitudes.stream()
+            .mapToDouble(Solicitud::getTotalAhorroSolicitado)
+            .sum();
+        
+        double ahorroPromedio = ahorroTotal / solicitudes.size();
+        
+        // Top 5 comunidades
+        List<String> topComunidades = ahorroPorComunidad.entrySet().stream()
+            .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
+            .limit(5)
+            .map(Map.Entry::getKey)
+            .collect(Collectors.toList());
+        
+        analisis = new AnalisisResultado(
+            ahorroPorSector,
+            ahorroPorComunidad,
+            conteoPorEstado,
+            ahorroTotal,
+            ahorroPromedio,
+            topComunidades
+        );
+    }
+    
+    private void showDashboard() {
+        DashboardFrame frame = new DashboardFrame(solicitudes, analisis);
+        frame.setVisible(true);
+    }
+}
