@@ -1,4 +1,4 @@
-# ⚡ Dashboard de Análisis de Ahorro Energético (SGC)
+# Dashboard de Análisis de Ahorro Energético (SGC)
 
 ![Dashboard Preview](docs/img/dashboard.png)
 
